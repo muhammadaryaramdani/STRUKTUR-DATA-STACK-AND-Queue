@@ -1,28 +1,47 @@
-import java.lang.reflect.Array;
-
 public class Stack {
-  public T[]array;
-  public int pointer;
-  public Stack(Class classname){
-  array=(T[]) Array.newInstance(classname, 10);
-
-  pointer = -1;
+  private int size;
+  private int[] stack_array;
+  private int top;
+  //Constructor Stack
+  public Stack(int size){
+    this.size = size;
+     stack_array = new int[size];
+    top = -1; //Top -1 berarti masih kosong
   }
-
-  public void push(T item){
-  array[++pointer]=item;
+  
+  public void push(int element){
+    if(full())
+      System.out.println("Stack overflow");
+    stack_array[++top]=element;
   }
-  public T pop(){
-  return array[pointer--];
+  
+  public int pop(){
+    if(empty()){
+      System.out.println("Stack is empty");
+      return -1;
   }
-
-  public static void main(String[] args){
-  Stack a = new Stack(Integer.class);
-  a.push(5);
-  a.push(6);
-  a.push(7);
-
-  System.out.println(a.pop());
-  System.out.println(a.pop());
+  return stack_array[top--];
+  }
+  
+  public int peek(){
+  if(!empty())
+    return stack_array[top];
+  else {
+    System.out.println("Stack is empty");
+    return -1;
+    }
+  }
+  public boolean empty(){
+    return (top==-1);
+  }
+  public boolean full(){
+    return (top==size-1);
+  }
+  public int search(int element){
+    for(int i=1;i<=n;i++){
+      if(stack_array[top--]==element)
+        return i;
+   }
+    return -1;
   }
 }
